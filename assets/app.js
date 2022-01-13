@@ -13,12 +13,25 @@ import './bootstrap';
 
 import Vue from 'vue';
 import {BootstrapVue, IconsPlugin} from "bootstrap-vue";
+import axios from "axios";
+
+window.axios = axios;
+
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-vue/dist/bootstrap-vue.min.css';
+
 import App from './components/App';
+import Navigation from './components/Navigation';
+import Login from "./components/attemp/Login";
 
 new Vue({
     el: "#app",
-    components: {App},
+    components: {
+        App,
+        Navigation,
+        Login
+    },
 })
