@@ -10,22 +10,28 @@
       <div class="border border-info p-3">
         <h1> Logowanie </h1>
         <b-form @submit.stop.prevent>
-          <label for="feedback-user">User ID</label>
-          <b-form-input v-model="userId" :state="validation" id="feedback-user"></b-form-input>
-          <b-form-invalid-feedback :state="validation">
-            Your user ID must be 5-12 characters long.
-          </b-form-invalid-feedback>
-          <b-form-valid-feedback :state="validation">
-            Looks Good.
-          </b-form-valid-feedback>
+          <label for="feedback-user">Login</label>
+
+          <b-form-input
+
+              :modelmodel="userLogin"
+              :state="isUserExists"
+
+              id="feedback-user"
+          ></b-form-input>
 
           <label for="text-passwordasd">Password</label>
-          <b-form-input type="password" id="text-password" aria-describedby="password-help-block"></b-form-input>
-          <!--        <b-form-text id="password-help-block">-->
-          <!--          Your password must be 8-20 characters long, contain letters and numbers, and must not-->
-          <!--          contain spaces, special characters, or emoji.-->
-          <!--        </b-form-text>-->
+          <b-form-input
 
+              :state="isUserExists"
+              :model="userPassword"
+
+              type="password"
+              id="text-password"
+              aria-describedby="password-help-block"
+          >
+
+          </b-form-input>
 
           <b-button
             variant="outline-primary mt-2"
@@ -40,19 +46,38 @@
 </template>
 
 <script>
+import toast from "../../js/mixins/toast";
 export default {
 
+  mixins: [toast],
   data: () => ({
-    userId: '',
-    login: '',
-    password: '',
-    validation: true,
+    userLogin: '',
+    userPassword: '',
+    validation: null,
+    passwordValidation: null,
+    invalidPassword: null,
+
+    isUserExists: null,
+    redirectAfterLoginUrl: '',
   }),
   methods: {
     test() {
     },
 
+    redirectAfterLogin() {
+      setTimeout(1000);
+      window.location.href = this.redirectAfterLoginUrl;
+    },
+
     loginAttemp() {
+      let self = this;
+
+      let test = {
+        toast_details: {
+          dupa:1
+        }
+      };
+
 
       axios
           .post(
@@ -61,24 +86,22 @@ export default {
                 login: "karol",
                 password: "karol1",
               },
-
+              window.default_axios_config
           )
           .then((response) => {
-            console.log(response);
+            console.log(response.data);
+            console.log(response.data);
+
+            self.isUserExists = response.data.is_user_exists;
+            self.redirectAfterLoginUrl = response.data.redirect_url;
+
+            self.showToast(response);
+            self.redirectAfterLogin();
           });
     },
   },
   beforeMount() {
-    this.test();
+    console.log(this);
   }
 }
 </script>
-
-<style scoped>
-body{
-  height: 100vh;
-}
-.container{
-  height: 100%;
-}
-</style>
