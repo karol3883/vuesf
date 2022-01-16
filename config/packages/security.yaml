@@ -8,7 +8,7 @@ security:
 
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        # used to reload user from session & other features (e.g. switch_user)
+        # used to reload user f rom session & other features (e.g. switch_user)
         app_user_provider:
             entity:
                 class: App\Entity\User
@@ -20,6 +20,14 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+#            custom_authenticator: App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
+            form_login:
+                login_path: login_auth
+                check_path: login_auth
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
