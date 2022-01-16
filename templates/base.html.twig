@@ -19,7 +19,11 @@
         {% block body %}{% endblock %}
 
 
+        <v-app>
+
+        </v-app>
         <div id="app">
+
             <Navigation
                 :navigation='{{ render(controller('App\\Controller\\NavigationController::index')) }}'
             >

@@ -27,6 +27,8 @@ import App from './components/App';
 import Navigation from './components/Navigation';
 import Login from "./components/attemp/Login";
 
+import Vuetify from "./js/plugins/vuetify";
+
 new Vue({
     el: "#app",
     components: {
@@ -34,4 +36,5 @@ new Vue({
         Navigation,
         Login
     },
+    vuetify: Vuetify,
 })
