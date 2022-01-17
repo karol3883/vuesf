@@ -4,5 +4,7 @@
 
 {% block app_block %}
 
-    <Login></Login>
+    <Login
+        :csrf_token="'{{ csrf_token('authenticate') }}'"
+    ></Login>
 {% endblock %}

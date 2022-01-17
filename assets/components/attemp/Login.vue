@@ -14,7 +14,7 @@
 
           <b-form-input
 
-              :modelmodel="userLogin"
+              v-model="userLogin"
               :state="isUserExists"
 
               id="feedback-user"
@@ -23,8 +23,8 @@
           <label for="text-passwordasd">Password</label>
           <b-form-input
 
+              v-model="userPassword"
               :state="isUserExists"
-              :model="userPassword"
 
               type="password"
               id="text-password"
@@ -49,10 +49,11 @@
 import toast from "../../js/mixins/toast";
 export default {
 
+  props:  ['csrf_token'],
   mixins: [toast],
   data: () => ({
-    userLogin: '',
-    userPassword: '',
+    userLogin: 'karoladmin',
+    userPassword: 'karol',
     validation: null,
     passwordValidation: null,
     invalidPassword: null,
@@ -71,32 +72,35 @@ export default {
 
     loginAttemp() {
       let self = this;
-
-      let test = {
-        toast_details: {
-          dupa:1
-        }
-      };
-
+      console.log({
+        login: this.userLogin,
+        password: this.userPassword,
+        csrfToken: this.csrf_token,
+      });
 
       axios
           .post(
-              '/login',
+              // '/login',
+              '/api/login',
               {
-                login: "karol",
-                password: "karol1",
+                username: this.userLogin,
+                password: this.userPassword,
               },
-              window.default_axios_config
+
+              {
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              }
+
           )
           .then((response) => {
             console.log(response.data);
-            console.log(response.data);
 
             self.isUserExists = response.data.is_user_exists;
-            self.redirectAfterLoginUrl = response.data.redirect_url;
 
             self.showToast(response);
-            self.redirectAfterLogin();
+            // self.redirectAfterLogin();
           });
     },
   },

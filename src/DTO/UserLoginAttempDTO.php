@@ -2,12 +2,12 @@
 
 namespace App\DTO;
 
-class UserLoginAttempDTO
+//class UserLoginAttempDTO
+class UserLoginAttempDTO extends FormDTO
 {
 
     private string $login;
     private string $password;
-
 
     public function getLogin(): string
     {

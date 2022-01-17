@@ -20,6 +20,7 @@ class AttempController extends Controller
     #[Route('/login', name: 'login', methods: ['GET'])]
     public function login(): Response
     {
+//        dd($this->getUser());
         $navbar = [
             'home' => [
                 'name' => 'Strona główna',
