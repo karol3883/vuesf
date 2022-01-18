@@ -13,25 +13,36 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 use App\Security\LoginFormAuthenticator;
 use App\Entity\User;
+use App\Traits\NotificationTrait;
+
 class AuthController extends AbstractController
 {
 
+    use NotificationTrait;
     #[Route('/api/login', name: 'api_login')]
-//    public function async2LoginTest(#[CurrentUser] ?User $user)
     public function async2LoginTest(Request $request)
     {
+        $jsonResponse = [];
+        $currentUser = $this->getUser();
 
-//        if ($user === null) {
-//            return $this->json([
-//                'dupa' => 1234512313,
-//            ]);
-//        }
+        if ($currentUser === null) {
+            $this->addNotificationToResponse(
+                response: $jsonResponse,
+                message: "Niepoprawne hasło lub podany użytkownik nie istnieje!",
+                title: "Błąd!",
+            );
 
-        return $this->json([
-//            'user'  => $user->getUserIdentifier(),
-            'user'  => 123,
-            'token' => 12345,
-        ]);
+            return $this->json($jsonResponse);
+        }
+
+        $this->addNotificationToResponse(
+            response: $jsonResponse,
+            message: "Witaj {$currentUser->getUserIdentifier()}! Zalogowano pomyślnie!",
+            title: "Zalogowano!",
+            variant: "success",
+        );
+
+        return $this->json($jsonResponse);
     }
 
     #[Route('/login_async', name: 'login_async', methods: ['POST'])]
@@ -60,7 +71,6 @@ class AuthController extends AbstractController
 
             return
                 $this->json($jsonResponse);
-//            return $this->redirectToRoute('login');
         }
 
         return
