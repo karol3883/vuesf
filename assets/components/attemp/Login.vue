@@ -95,12 +95,7 @@ export default {
 
           )
           .then((response) => {
-            console.log(response.data);
-
-            self.isUserExists = response.data.is_user_exists;
-
-            self.showToast(response);
-            // self.redirectAfterLogin();
+            self.showToast(response, () => self.$router.push({ name: "home"}));
           });
     },
   },
