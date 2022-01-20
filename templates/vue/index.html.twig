@@ -1,0 +1,24 @@
+{% extends 'basevue.html.twig' %}
+
+{% block body %}
+    <div id="app">
+
+        <Navigation
+            :navigation='{{ render(controller('App\\Controller\\NavigationController::index')) }}'
+        >
+
+        </Navigation>
+
+        <v-app v-cloak>
+
+{#            <v-app-bar short app >Symfony + Vuetify</v-app-bar>#}
+            <v-main>
+                <v-container fluid>
+                    <router-view
+                        :userInfo="'GUPIUSER!'"
+                    ></router-view>
+                </v-container>
+            </v-main>
+        </v-app>
+    </div>
+{% endblock %}
