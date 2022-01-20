@@ -23,15 +23,12 @@ Vue.use(IconsPlugin);
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-vue/dist/bootstrap-vue.min.css';
 
-import App from './components/App';
-import Navigation from './components/Navigation';
-import Login from "./components/attemp/Login";
+// import App from './components/App';
+// import Navigation from './components/Navigation';
+// import Login from "./components/attemp/Login";
 
+import vueComponents from './vueComponents';
 new Vue({
     el: "#app",
-    components: {
-        App,
-        Navigation,
-        Login
-    },
+    components: vueComponents,
 })
